@@ -100,3 +100,10 @@ bot.onText(/\/test_clima/, (msg) => {
   enviarClimaInstantaneo(chatId, bot);
 });
 
+import { enviarNoticiaInstantanea } from './tareas.js';
+
+bot.onText(/\/test_noticia/, (msg) => {
+  const chatId = msg.chat.id;
+  bot.sendMessage(chatId, "📰 Buscando noticia de prueba...");
+  enviarNoticiaInstantanea(chatId, bot);
+});
