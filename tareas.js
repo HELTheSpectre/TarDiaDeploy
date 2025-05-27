@@ -1,6 +1,4 @@
 import cron from 'node-cron';
-import fetch from 'node-fetch';
-import { fetch } from 'undici';
 
 export function programarTareas(chatId, bot) {
   // Clima diario a las 8:00 AM
