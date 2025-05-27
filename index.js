@@ -46,7 +46,7 @@ bot.on('callback_query', async (callbackQuery) => {
 
 if (callbackQuery.data === 'noticias_diarias') {
   programarTareas(chatId, bot); // Reutiliza la misma función si está todo junto
-  bot.sendMessage(chatId, "✅ ¡Listo! Vas a recibir las noticias todos los días a la 1:00 AM.");
+  bot.sendMessage(chatId, "✅ ¡Listo! Vas a recibir las noticias todos los días a la 8:00 AM.");
 }
 
   bot.answerCallbackQuery(callbackQuery.id);
