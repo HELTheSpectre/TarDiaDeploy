@@ -28,7 +28,7 @@ bot.onText(/\/start/, (msg) => {
     reply_markup: {
       inline_keyboard: [
         [{ text: "☀️ Clima a las 8:00 AM", callback_data: 'clima_diario' }],
-        // Podés seguir agregando más funciones después
+        [{ text: "🗞 Noticias a la 8:00 AM", callback_data: 'noticias_diarias' }]
       ]
     }
   });
