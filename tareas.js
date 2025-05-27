@@ -21,3 +21,25 @@ export function programarTareas(chatId, bot) {
     }
   });
 }
+
+//Mandar Noticia 
+cron.schedule('0 1 * * *', async () => {
+  const apiKey = process.env.NEWS_API_KEY;
+  const url = `https://gnews.io/api/v4/top-headlines?lang=es&max=1&token=${apiKey}`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.articles && data.articles.length > 0) {
+      const noticia = data.articles[0];
+      const mensaje = `🗞️ Noticia del día:\n*${noticia.title}*\n${noticia.description}\n${noticia.url}`;
+      bot.sendMessage(chatId, mensaje, { parse_mode: 'Markdown' });
+    } else {
+      bot.sendMessage(chatId, "No se encontró ninguna noticia para hoy.");
+    }
+  } catch (err) {
+    console.error("Error al obtener noticias:", err);
+    bot.sendMessage(chatId, "❌ Hubo un problema al consultar noticias.");
+  }
+});
