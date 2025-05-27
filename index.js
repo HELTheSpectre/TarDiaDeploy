@@ -42,7 +42,12 @@ bot.on('callback_query', async (callbackQuery) => {
   if (callbackQuery.data === 'clima_diario') {
     programarTareas(chatId, bot);
     bot.sendMessage(chatId, "✅ ¡Listo! Vas a recibir el clima todos los días a las 8:00 AM.");
-  }
+  }    
+
+if (callbackQuery.data === 'noticias_diarias') {
+  programarTareas(chatId, bot); // Reutiliza la misma función si está todo junto
+  bot.sendMessage(chatId, "✅ ¡Listo! Vas a recibir las noticias todos los días a la 1:00 AM.");
+}
 
   bot.answerCallbackQuery(callbackQuery.id);
 });
