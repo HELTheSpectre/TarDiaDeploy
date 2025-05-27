@@ -20,10 +20,9 @@ export function programarTareas(chatId, bot) {
       console.error("Error al obtener el clima:", err);
     }
   });
-}
 
 //Mandar Noticia 
-cron.schedule('0 1 * * *', async () => {
+cron.schedule('15 1 * * *', async () => {
   const apiKey = process.env.NEWS_API_KEY;
   const url = `https://gnews.io/api/v4/top-headlines?lang=es&max=1&token=${apiKey}`;
 
@@ -43,3 +42,8 @@ cron.schedule('0 1 * * *', async () => {
     bot.sendMessage(chatId, "❌ Hubo un problema al consultar noticias.");
   }
 });
+
+  
+}
+
+
