@@ -40,6 +40,7 @@ bot.onText(/\/start/, (msg) => {
   });
 });
 
+
 bot.on('callback_query', async (callbackQuery) => {
   const chatId = callbackQuery.message.chat.id;
   const data = callbackQuery.data;
@@ -84,6 +85,18 @@ bot.on('callback_query', async (callbackQuery) => {
     programarNoticiaUTC(chatId, bot, offset, horaLocal);
     bot.sendMessage(chatId, "✅ ¡Listo! Vas a recibir una noticia todos los días a las 8:00 AM.");
   }
+  
 
   bot.answerCallbackQuery(callbackQuery.id);
 });
+
+//Test 
+
+import { enviarClimaInstantaneo } from './tareas.js';
+
+bot.onText(/\/test_clima/, (msg) => {
+  const chatId = msg.chat.id;
+  bot.sendMessage(chatId, "🔄 Probando clima en tiempo real...");
+  enviarClimaInstantaneo(chatId, bot);
+});
+
