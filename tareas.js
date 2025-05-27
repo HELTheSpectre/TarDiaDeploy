@@ -67,9 +67,3 @@ export function programarNoticiaUTC(chatId, bot, offset, horaLocal) {
     }
   });
 }
-
-
-  
-}
-
-
