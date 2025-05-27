@@ -1,8 +1,22 @@
+import express from 'express'; 
 import TelegramBot from 'node-telegram-bot-api';
 import dotenv from 'dotenv';
 import { programarTareas } from './tareas.js';
 
 dotenv.config();
+
+// --- Servidor Express mínimo para Render ---
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.get('/', (req, res) => {
+  res.send('Bot TarDía funcionando');
+});
+
+app.listen(port, () => {
+  console.log(`Servidor Express escuchando en puerto ${port}`);
+});
+// --------------------------------------------
 
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
