@@ -67,3 +67,24 @@ export function programarNoticiaUTC(chatId, bot, offset, horaLocal) {
     }
   });
 }
+
+
+//TestFuncion
+export async function enviarClimaInstantaneo(chatId, bot) {
+  const ciudad = "Mendoza";
+  const apiKey = process.env.WEATHER_API_KEY;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad}&units=metric&appid=${apiKey}&lang=es`;
+
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    const temp = data.main.temp;
+    const desc = data.weather[0].description;
+
+    const mensaje = `☀️ Clima actual en ${ciudad}: ${temp}°C, ${desc}.`;
+    bot.sendMessage(chatId, mensaje);
+  } catch (err) {
+    console.error("Error en clima instantáneo:", err);
+    bot.sendMessage(chatId, "❌ Hubo un problema al consultar el clima.");
+  }
+}
