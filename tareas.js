@@ -68,6 +68,46 @@ export function programarNoticiaUTC(chatId, bot, offset, horaLocal) {
   });
 }
 
+//Integración con IA
+
+export async function responderConIA(chatId, bot, pregunta) {
+  const apiKey = process.env.GEMINI_API_KEY;
+
+  const body = {
+    contents: [
+      {
+        parts: [
+          {
+            text: pregunta
+          }
+        ]
+      }
+    ]
+  };
+
+  try {
+    const res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=' + apiKey, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    const data = await res.json();
+    const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (respuesta) {
+      bot.sendMessage(chatId, respuesta);
+    } else {
+      bot.sendMessage(chatId, "❌ No pude generar una respuesta.");
+    }
+  } catch (err) {
+    console.error("Error en IA:", err);
+    bot.sendMessage(chatId, "❌ Hubo un error con la IA.");
+  }
+}
+
 
 //TestFuncion
 export async function enviarClimaInstantaneo(chatId, bot) {
