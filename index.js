@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import {
   programarClimaUTC,
   programarNoticiaUTC
+  responderConIA
 } from './tareas.js';
 
 dotenv.config();
@@ -90,6 +91,8 @@ bot.on('callback_query', async (callbackQuery) => {
   bot.answerCallbackQuery(callbackQuery.id);
 });
 
+
+//IA 
 
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
