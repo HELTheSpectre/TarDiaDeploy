@@ -3,7 +3,7 @@ import TelegramBot from 'node-telegram-bot-api';
 import dotenv from 'dotenv';
 import {
   programarClimaUTC,
-  programarNoticiaUTC
+  programarNoticiaUTC,
   responderConIA
 } from './tareas.js';
 
