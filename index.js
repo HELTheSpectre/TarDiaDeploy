@@ -90,6 +90,20 @@ bot.on('callback_query', async (callbackQuery) => {
   bot.answerCallbackQuery(callbackQuery.id);
 });
 
+
+bot.on('message', (msg) => {
+  const chatId = msg.chat.id;
+  const texto = msg.text;
+
+  // Ignorar comandos como /start
+  if (texto.startsWith('/')) return;
+
+  bot.sendMessage(chatId, "🤖 Pensando...");
+  responderConIA(chatId, bot, texto);
+});
+
+
+
 //Test 
 
 import { enviarClimaInstantaneo } from './tareas.js';
