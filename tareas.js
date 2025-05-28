@@ -71,30 +71,43 @@ export function programarNoticiaUTC(chatId, bot, offset, horaLocal) {
 //Integración con IA
 
 export async function responderConIA(chatId, bot, pregunta) {
-  const token = process.env.HF_TOKEN;
+  const apiKey = process.env.GEMINI_API_KEY;
 
-  const res = await fetch("https://api-inference.huggingface.co/models/google/flan-t5-small", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${token}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      inputs: `Pregunta: ${pregunta} Respuesta:`
-    })
-  });
+  const body = {
+    contents: [
+      {
+        parts: [
+          { text: pregunta }
+        ]
+      }
+    ]
+  };
 
-  const data = await res.json();
-  const respuesta = data[0]?.generated_text;
+  try {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
 
-  if (respuesta) {
-    bot.sendMessage(chatId, respuesta);
-  } else {
-    console.error("Hugging Face error:", data);
-    bot.sendMessage(chatId, "❌ No pude generar una respuesta.");
+    const data = await res.json();
+    console.log("🧪 Respuesta Gemini:", JSON.stringify(data, null, 2));
+
+    const respuesta = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (respuesta) {
+      bot.sendMessage(chatId, respuesta);
+    } else {
+      bot.sendMessage(chatId, "❌ Gemini no devolvió una respuesta.");
+    }
+
+  } catch (err) {
+    console.error("❌ Error IA:", err);
+    bot.sendMessage(chatId, "❌ Error al generar respuesta.");
   }
 }
-
 
 //TestFuncion
 export async function enviarClimaInstantaneo(chatId, bot) {
