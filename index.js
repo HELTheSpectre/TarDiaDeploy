@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import {
   programarClimaUTC,
   programarNoticiaUTC,
-  responderConIA
 } from './tareas.js';
 
 dotenv.config();
@@ -93,18 +92,17 @@ bot.on('callback_query', async (callbackQuery) => {
 
 
 //IA 
-
+import { responderConIA } from './tareas.js';
 bot.on('message', (msg) => {
   const chatId = msg.chat.id;
   const texto = msg.text;
 
-  // Ignorar comandos como /start
+  // Ignoramos comandos (como /start, /test)
   if (texto.startsWith('/')) return;
 
   bot.sendMessage(chatId, "🤖 Pensando...");
   responderConIA(chatId, bot, texto);
 });
-
 
 
 //Test 
