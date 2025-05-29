@@ -81,7 +81,7 @@ export async function responderConIA(chatId, bot, pregunta) {
   };
 
   try {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`, {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
@@ -103,6 +103,7 @@ export async function responderConIA(chatId, bot, pregunta) {
     bot.sendMessage(chatId, "❌ Error al generar respuesta.");
   }
 }
+
 
 
 //TestFuncion
