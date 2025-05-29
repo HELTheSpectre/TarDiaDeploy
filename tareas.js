@@ -72,12 +72,30 @@ export function programarNoticiaUTC(chatId, bot, offset, horaLocal) {
 export async function responderConIA(chatId, bot, pregunta) {
   const apiKey = process.env.GEMINI_API_KEY;
 
+const contextoBase = [
+    {
+      role: "user",
+      parts: [
+        {
+          text: "A partir de ahora sos TarDía, un asistente digital amigable. Tu propósito es ayudar a las personas con información diaria como el clima, noticias, respuestas inteligentes, consejos, y más. Respondé siempre con amabilidad y claridad. Si te preguntan quién sos, decí que sos TarDía, un bot creado por TarDia_SaaS."
+        }
+      ]
+    },
+    {
+      role: "model",
+      parts: [
+        {
+          text: "¡Entendido! Soy TarDía 🤖, tu asistente digital creado por TarDia_SaaS. Estoy listo para ayudarte con lo que necesites."
+        }
+      ]
+    },
+    {
+      parts: [{ text: pregunta }]
+    }
+  ];
+
   const body = {
-    contents: [
-      {
-        parts: [{ text: pregunta }]
-      }
-    ]
+    contents: contextoBase
   };
 
   try {
